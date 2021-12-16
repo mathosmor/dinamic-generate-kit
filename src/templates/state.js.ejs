@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import { Action, State, StateContext } from '@ngxs/store';
+
+import { <%= props.actionName %>Action } from './<%= props.stateName %>-state.actions';
+
+@State({
+  name: '<%= props.camelCase %>State',
+  defaults: null
+})
+
+@Injectable()
+export class <%= props.camelCase %>State {
+  constructor() { }
+
+  @Action(<%= props.actionName %>Action)
+  async default(ctx: StateContext<any>, { payload } ) {
+    ctx.setState({ entity: payload });
+  }
+}

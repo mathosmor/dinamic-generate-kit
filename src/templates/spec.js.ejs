@@ -1,0 +1,28 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { <%= props.camelCase %><%= props.type %> } from './<%= props.componentName %>.<%= props.typeLow %>';
+
+describe('<%= props.camelCase %><%= props.type %>', () => {
+	let component: <%= props.camelCase %><%= props.type %>;
+	let fixture: ComponentFixture<<%= props.camelCase %><%= props.type %>>;
+	let compiled: any;
+
+	beforeEach((() => {
+		TestBed.configureTestingModule({
+			declarations: [
+				<%= props.camelCase %><%= props.type %>,
+			],
+		}).compileComponents();
+	}));
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(<%= props.camelCase %><%= props.type %>);
+		component = fixture.componentInstance;
+		compiled = fixture.debugElement.nativeElement;
+		fixture.detectChanges();
+	});
+
+	it('', () => {
+
+	});
+
+});

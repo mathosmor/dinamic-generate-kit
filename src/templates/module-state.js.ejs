@@ -1,0 +1,17 @@
+import { NgModule } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
+
+import { <%= props.camelCase %>State } from './<%= props.stateName %>-state';
+import { <%= props.camelCase %>StateSandbox } from './<%= props.stateName %>-state.sandbox';
+
+@NgModule({
+  imports: [
+    NgxsModule.forFeature([
+        <%= props.camelCase %>State
+    ]),
+  ],
+  providers: [
+    <%= props.camelCase %>StateSandbox
+  ]
+})
+export class <%= props.camelCase %>StateStateModule {}

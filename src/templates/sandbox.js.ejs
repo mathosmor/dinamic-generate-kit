@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { StateReset } from 'ngxs-reset-plugin';
+import { Observable } from 'rxjs';
+
+import { <%= props.camelCase %>State } from './<%= props.stateName %>-state';
+import { <%= props.actionName %>Action } from './<%= props.stateName %>-state.actions';
+
+@Injectable()
+export class <%= props.camelCase %>StateSandbox{
+  @Select(<%= props.camelCase %>State) <%= props.nameCamalize %>$: Observable<any>;
+
+  constructor(
+    private store: Store,
+  ){}
+
+  public reset(): void{
+    this.store.dispatch(new StateReset(<%= props.camelCase %>State));
+  }
+
+  public select<%= props.camelCase %>(example: any): void{
+    this.store.dispatch(new <%= props.actionName %>Action(example));
+  }
+
+}
