@@ -1,0 +1,17 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { UI<%= props.camelCase %>Component } from './ui-<%= props.componentName %>.component';
+
+@NgModule({
+	declarations: [
+		UI<%= props.camelCase %>Component
+	],
+	exports: [
+		UI<%= props.camelCase %>Component
+	],
+	imports: [
+		CommonModule,
+	]
+})
+export class UI<%= props.camelCase %>Module { }

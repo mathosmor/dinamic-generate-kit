@@ -1,0 +1,16 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'ui-<%= props.componentName %>',
+  templateUrl: './ui-<%= props.componentName %>.component.html',
+  styleUrls: ['./ui-<%= props.componentName %>.component.scss']
+})
+export class UI<%= props.camelCase %>Component implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+
+  }
+
+}

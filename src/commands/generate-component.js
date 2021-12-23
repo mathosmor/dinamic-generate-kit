@@ -1,44 +1,27 @@
 const command = {
-  name: 'generate:component',
-  alias: ['g:c'],
-  description: 'Create a new component',
-  run: async toolbox => {
-    const {
-      prompt,
-      parameters,
-      createComponent,
-      createUi,
-      print: { info }
-    } = toolbox
+	name: 'generate:component',
+	alias: ['g:c'],
+	description: 'Create a new component',
+	run: async toolbox => {
+		const {
+			parameters,
+			createComponent,
+			print: { info }
+		} = toolbox
 
-    const figlet = require('figlet');
-    
-    const name = parameters.first
+		const figlet = require('figlet');
 
-    info(figlet.textSync('DGKIT', { horizontalLayout: 'full' }))
+		const name = parameters.first
 
-    if (!name) {
-      error('NAME MUST BE SPECIFIED!');
-      return;
-    }
+		info(figlet.textSync('DGKIT', { horizontalLayout: 'full' }))
 
-    let select = await prompt.ask([
-      {
-        type: 'select',
-        name: 'selector',
-        message: 'What the name of selector?',
-        choices: ['app', 'ui']
-      }
-    ])
+		if (!name) {
+			error('NAME MUST BE SPECIFIED!');
+			return;
+		}
 
-    const selector = select.selector
-
-    if (selector == 'app') {
-      await createComponent(name, selector)
-    } else {
-      await createUi(name, selector)
-    }
-  }
+		await createComponent(name)
+	}
 }
 
 module.exports = command;

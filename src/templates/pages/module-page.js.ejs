@@ -1,0 +1,19 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { <%= props.camelCase %>PageRoutingModule } from './<%= props.componentName %>-page-routing.module';
+import { <%= props.camelCase %>Page } from './<%= props.componentName %>.page';
+
+@NgModule({
+  declarations: [
+    <%= props.camelCase %>Page,
+  ],
+  exports: [
+    <%= props.camelCase %>Page,
+  ],
+  imports: [
+    CommonModule,
+    <%= props.camelCase %>PageRoutingModule,
+  ]
+})
+export class <%= props.camelCase %>PageModule { }

@@ -1,29 +1,27 @@
 const command = {
-	name: 'generate:page',
-	alias: ['g:p'],
-	description: 'Create a new page',
+	name: 'generate:ui',
+	alias: ['g:u'],
+	description: 'Create a new ui component',
 	run: async toolbox => {
 		const {
 			parameters,
-			createPage,
+			createUi,
 			print: { info }
 		} = toolbox
 
 		const figlet = require('figlet');
 
+		const name = parameters.first
+
 		info(figlet.textSync('DGKIT', { horizontalLayout: 'full' }))
 
-		const name = parameters.first
-		
 		if (!name) {
 			error('NAME MUST BE SPECIFIED!');
 			return;
 		}
 
-
-		await createPage(name)
+		await createUi(name)
 	}
 }
 
 module.exports = command;
-

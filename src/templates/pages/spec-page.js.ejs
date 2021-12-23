@@ -1,0 +1,28 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { <%= props.camelCase %>Page } from './<%= props.componentName %>.page';
+
+describe('<%= props.camelCase %>Page', () => {
+	let component: <%= props.camelCase %>Page;
+	let fixture: ComponentFixture<<%= props.camelCase %>Page>;
+	let compiled: any;
+
+	beforeEach((() => {
+		TestBed.configureTestingModule({
+			declarations: [
+				<%= props.camelCase %>Page,
+			],
+		}).compileComponents();
+	}));
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(<%= props.camelCase %>Page);
+		component = fixture.componentInstance;
+		compiled = fixture.debugElement.nativeElement;
+		fixture.detectChanges();
+	});
+
+	it('', () => {
+
+	});
+
+});

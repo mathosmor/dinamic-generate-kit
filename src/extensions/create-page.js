@@ -1,74 +1,71 @@
 module.exports = toolbox => {
-  const {
-    template,
-    print: { error, success }
-  } = toolbox
+	const {
+		template,
+		print: { success }
+	} = toolbox
 
-  async function createPage(name) {
-    const type = 'Page';
-    const typeLow = type.toLowerCase();
+	async function createPage(name) {
 
-    if (!name) {
-      error('Name must be specified!');
-      return;
-    }
+		const obj = name.split('/')
+		let componentName = name;
 
-    const selector = 'app';
+		if (obj.length > 0) {
+			componentName = obj.slice(obj.length - 1)[0]
+		}
 
-    const obj = name.split('/')
-    let componentName = name;
+		let camelCase = '';
+		componentName.split('-').forEach(value => {
+			camelCase += value.charAt(0).toUpperCase() + value.slice(1)
+		})
 
-    if (obj.length > 0) {
-      componentName = obj.slice(obj.length - 1)[0]
-    }
+		await template.generate({
+			template: './pages/ts-page.js.ejs',
+			target: `${name}/${componentName}.page.ts`,
+			props: { componentName, camelCase }
+		})
 
-    let camelCase = '';
-    componentName.split('-').forEach(value => {
-      camelCase += value.charAt(0).toUpperCase() + value.slice(1)
-    })
+		await template.generate({
+			template: './pages/module-page.js.ejs',
+			target: `${name}/${componentName}-page.module.ts`,
+			props: { camelCase, componentName }
+		})
 
-    await template.generate({
-      template: 'component.js.ejs',
-      target: `${name}/${componentName}.page.ts`,
-      props: { componentName, camelCase, type, typeLow, selector }
-    })
+		await template.generate({
+			template: './pages/stories-page.js.ejs',
+			target: `${name}/${componentName}-page.stories.ts`,
+			props: { componentName, camelCase }
+		})
 
-    await template.generate({
-      template: 'module.js.ejs',
-      target: `${name}/${componentName}-page.module.ts`,
-      props: { camelCase, componentName, type, typeLow }
-    })
+		await template.generate({
+			template: './pages/template-page.js.ejs',
+			target: `${name}/${componentName}.page.html`,
+			props: { componentName }
+		})
 
-    await template.generate({
-      template: 'stories.js.ejs',
-      target: `${name}/${componentName}-page.stories.ts`,
-      props: { componentName, camelCase, type, typeLow }
-    })
+		await template.generate({
+			template: './pages/style-page.js.ejs',
+			target: `${name}/${componentName}.page.scss`
+		})
 
-    await template.generate({
-      template: 'template.js.ejs',
-      target: `${name}/${componentName}.page.html`,
-      props: { componentName }
-    })
+		await template.generate({
+			template: './pages/routing-page.js.ejs',
+			target: `${name}/${componentName}-page-routing.module.ts`,
+			props: { componentName, camelCase }
+		})
 
-    await template.generate({
-      template: 'style.js.ejs',
-      target: `${name}/${componentName}.page.scss`
-    })
+		await template.generate({
+			template: './pages/spec-page.js.ejs',
+			target: `${name}/${componentName}.page.spec.ts`,
+			props: { componentName, camelCase }
+		})
 
-    await template.generate({
-      template: 'routing.js.ejs',
-      target: `${name}/${componentName}-page-routing.module.ts`,
-      props: { componentName, camelCase }
-    })
+		await template.generate({
+			template: './pages/index-page.js.ejs',
+			target: `${name}/index.ts`,
+			props: { componentName, camelCase }
+		})
 
-    await template.generate({
-      template: 'spec.js.ejs',
-      target: `${name}/${componentName}.page.spec.ts`,
-      props: { componentName, camelCase, type, typeLow }
-    })
-
-    success(`Generated page ${name}`)
-  }
-  toolbox.createPage = createPage
+		success(`Generated page ${name}`)
+	}
+	toolbox.createPage = createPage
 }

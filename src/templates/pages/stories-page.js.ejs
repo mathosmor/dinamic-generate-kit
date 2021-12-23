@@ -1,0 +1,29 @@
+import { moduleMetadata } from '@storybook/angular';
+import { Meta } from '@storybook/angular/types-6-0';
+import { <%= props.camelCase %>PageModule } from './<%= props.componentName %>-page.module';
+import { <%= props.camelCase %>Page } from './<%= props.componentName %>.page';
+
+export default {
+  title: 'components/<%= props.componentName %>',
+  decorators: [
+    moduleMetadata({
+      imports: [
+        <%= props.camelCase %>PageModule
+      ]
+    })
+  ],
+  parameters: {
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true }
+    }
+  }
+} as Meta;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const Default = (args: <%= props.camelCase %>Page) => ({
+  component: <%= props.camelCase %>Page,
+  props: args
+});
+
+Default.args = {};

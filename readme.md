@@ -4,6 +4,10 @@
 The Dinamic Generate Kit (dgk) focus in suport the developer in projects angular, 
 maximizing the agility of creating components, states, or even pages.
 
+## Github
+
+[https://github.com/mathosmor/dinamic-generate-kit]
+
 ## Instalation
 
 |  package   |  version   |

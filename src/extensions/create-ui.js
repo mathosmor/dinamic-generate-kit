@@ -1,74 +1,71 @@
 module.exports = toolbox => {
-  const {
-    template,
-    print: { success, error }
-  } = toolbox
+	const {
+		template,
+		print: { success }
+	} = toolbox
 
-  async function createUi(name, selector, namePath) {
-    const type = 'Component';
-    const typeLow = type.toLowerCase()
+	async function createUi(name) {
 
-    if (!name) {
-      error('Name must be specified!');
-      return;
-    }
+		let obj = name.split('/');
+		let componentName = name;
 
-    const obj = name.split('/')
-    let componentName = name;
+		if (obj.length > 0) {
+			componentName = obj.slice(obj.length - 1)[0];
+			let last = obj.slice(obj.length - 1)[0];
+			obj.pop();
+			last = 'ui-' + last;
+			obj.push(last);
+			name = obj.join('/');
+			console.log(name)
+		}
 
-    if (obj.length > 0) {
-      componentName = obj.slice(obj.length - 1)[0]
-    }
+		let camelCase = '';
+		componentName.split('-').forEach(value => {
+			camelCase += value.charAt(0).toUpperCase() + value.slice(1)
+		})
 
-    let camelCase = '';
-    componentName.split('-').forEach(value => {
-      camelCase += value.charAt(0).toUpperCase() + value.slice(1)
-    })
+		await template.generate({
+			template: './ui/ts-ui.js.ejs',
+			target: `${name}/ui-${componentName}.component.ts`,
+			props: { componentName, camelCase }
+		})
 
-    camelCase = 'UI' + camelCase
+		await template.generate({
+			template: './ui/module-ui.js.ejs',
+			target: `${name}/ui-${componentName}.module.ts`,
+			props: { camelCase, componentName }
+		})
 
-    await template.generate({
-      template: 'component.js.ejs',
-      target: `${name}/${componentName}.component.ts`,
-      props: { componentName, camelCase, type, typeLow, selector }
-    })
+		await template.generate({
+			template: './ui/stories-ui.js.ejs',
+			target: `${name}/ui-${componentName}.stories.ts`,
+			props: { componentName, camelCase }
+		})
 
-    await template.generate({
-      template: 'module.js.ejs',
-      target: `${name}/${componentName}-component.module.ts`,
-      props: { camelCase, componentName, type, typeLow }
-    })
+		await template.generate({
+			template: './ui/template-ui.js.ejs',
+			target: `${name}/ui-${componentName}.component.html`,
+			props: { componentName }
+		})
 
-    await template.generate({
-      template: 'stories.js.ejs',
-      target: `${name}/${componentName}.stories.ts`,
-      props: { componentName, camelCase, type, typeLow, namePath }
-    })
+		await template.generate({
+			template: './ui/style-ui.js.ejs',
+			target: `${name}/ui-${componentName}.component.scss`
+		})
 
-    await template.generate({
-      template: 'template.js.ejs',
-      target: `${name}/${componentName}.component.html`,
-      props: { componentName }
-    })
+		await template.generate({
+			template: './ui/index-ui.js.ejs',
+			target: `${name}/index.ts`,
+			props: { componentName }
+		})
 
-    await template.generate({
-      template: 'style.js.ejs',
-      target: `${name}/${componentName}.component.scss`
-    })
+		await template.generate({
+			template: './ui/spec-ui.js.ejs',
+			target: `${name}/ui-${componentName}.component.spec.ts`,
+			props: { componentName, camelCase }
+		})
 
-    await template.generate({
-      template: 'index.js.ejs',
-      target: `${name}/index.ts`,
-      props: { componentName }
-    })
-
-    await template.generate({
-      template: 'spec.js.ejs',
-      target: `${name}/${componentName}.component.spec.ts`,
-      props: { componentName, camelCase, type, typeLow }
-    })
-
-    success(`Generated component ${name}`)
-  }
-  toolbox.createUi = createUi
+		success(`Generated ui component ${name}`)
+	}
+	toolbox.createUi = createUi
 }

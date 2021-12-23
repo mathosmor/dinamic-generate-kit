@@ -1,6 +1,6 @@
 {
 	"name": "dinamic-generate-kit",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Generator kit for application in angular",
 	"bin": {
 		"dgk": "bin/dgk"

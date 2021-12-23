@@ -1,11 +1,10 @@
 import { moduleMetadata } from '@storybook/angular';
 import { Meta } from '@storybook/angular/types-6-0';
-
-import { <%= props.camelCase %>Module } from './<%= props.componentName %>-<%= props.typeLow %>.module';
-import { <%= props.camelCase %><%= props.type %> } from './<%= props.componentName %>.<%= props.typeLow %>';
+import { <%= props.camelCase %>Module } from './<%= props.componentName %>-component.module';
+import { <%= props.camelCase %>Component } from './<%= props.componentName %>.component';
 
 export default {
-  title: '<%= props.namePath %>/<%= props.componentName %>',
+  title: 'components/<%= props.componentName %>',
   decorators: [
     moduleMetadata({
       imports: [
@@ -22,8 +21,8 @@ export default {
 } as Meta;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const Default = (args: <%= props.camelCase %><%= props.type %>) => ({
-  component: <%= props.camelCase %><%= props.type %>,
+export const Default = (args: <%= props.camelCase %>Component) => ({
+  component: <%= props.camelCase %>Component,
   props: args
 });
 

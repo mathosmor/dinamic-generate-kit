@@ -1,0 +1,28 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UI<%= props.camelCase %>Component } from './ui-<%= props.componentName %>.component';
+
+describe('UI<%= props.camelCase %>Component', () => {
+	let component: UI<%= props.camelCase %>Component;
+	let fixture: ComponentFixture<UI<%= props.camelCase %>Component>;
+	let compiled: any;
+
+	beforeEach((() => {
+		TestBed.configureTestingModule({
+			declarations: [
+				UI<%= props.camelCase %>Component,
+			],
+		}).compileComponents();
+	}));
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(UI<%= props.camelCase %>Component);
+		component = fixture.componentInstance;
+		compiled = fixture.debugElement.nativeElement;
+		fixture.detectChanges();
+	});
+
+	it('', () => {
+
+	});
+
+});

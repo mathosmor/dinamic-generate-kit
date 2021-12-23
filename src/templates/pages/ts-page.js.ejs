@@ -1,0 +1,16 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-<%= props.componentName %>-page',
+  templateUrl: './<%= props.componentName %>.page.html',
+  styleUrls: ['./<%= props.componentName %>.page.scss']
+})
+export class <%= props.camelCase %>Page implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+
+  }
+
+}
